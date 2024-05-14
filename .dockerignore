@@ -4,3 +4,4 @@ __pycache__
 myproject.egg-info
 .gitignore
 README.md
+data/raw
