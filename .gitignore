@@ -164,6 +164,8 @@ cython_debug/
 
 # Imported data
 data/raw/
+data/interim/
+data/processed/
 
 # Model
 models/articles_embeddings.pickle
