@@ -58,10 +58,11 @@ def merge_csv_files(file1_path: str, file2_path: str, output_file: str) -> pd.Da
     df2 = pd.read_csv(file2_path)
 
     # Merge the two DataFrames based on the 'article_id' column
-    merged_df = pd.merge(df1, df2, how="left", left_on="click_article_id",
-                         right_on="article_id")
+    merged_df = pd.merge(
+        df1, df2, how="left", left_on="click_article_id", right_on="article_id"
+    )
 
-    merged_df = merged_df.drop(columns=['click_article_id'])
+    merged_df = merged_df.drop(columns=["click_article_id"])
 
     # Save the merged DataFrame to a CSV file
     merged_df.to_csv(output_file, index=False)
@@ -69,9 +70,9 @@ def merge_csv_files(file1_path: str, file2_path: str, output_file: str) -> pd.Da
     return merged_df
 
 
-def closest_articles(model_dir_path: str,
-                     article_id: int,
-                     nb_closest_articles: int) -> dict:
+def closest_articles(
+    model_dir_path: str, article_id: int, nb_closest_articles: int
+) -> dict:
     """
     Find the closest articles to a given article based on cosine similarity.
 
@@ -86,18 +87,38 @@ def closest_articles(model_dir_path: str,
         - "cosine_similarities": The cosine similarity values of the closest articles.
     """
     # Deserialize pickle object
-    with open(model_dir_path + 'articles_embeddings.pickle', 'rb') as f:
+    with open(model_dir_path + "articles_embeddings.pickle", "rb") as f:
         articles_embeddings = cPickle.load(f)
 
     row = articles_embeddings[article_id].reshape(1, -1)
     cosine_similarities = cosine_similarity(row, articles_embeddings).flatten()
 
     sorted_indices = np.argsort(-cosine_similarities)[1:][:nb_closest_articles]
-    sorted_cosine_similarities = np.sort(cosine_similarities)[::-1][1:][:nb_closest_articles]
+    sorted_cosine_similarities = np.sort(cosine_similarities)[::-1][1:][
+        :nb_closest_articles
+    ]
 
     results = {
         "indices": sorted_indices,
-        "cosine_similarities": sorted_cosine_similarities
+        "cosine_similarities": sorted_cosine_similarities,
     }
 
     return results
+
+
+def filter_by_user_counts(df: pd.DataFrame, number_of_articles: int) -> pd.DataFrame:
+    """
+    DataFrame to keep users who have clicked on a min number of articles.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame
+        min_click_articles (int): Apply filter to this number of articles
+
+    Returns:
+        pd.DataFrame: A filtered DataFrame containing only users who have clicked on at least `min_click_articles` articles.
+    """
+    user_counts = df["user_id"].value_counts()
+    filtered_users = user_counts[user_counts > number_of_articles].index
+    filtered_df = df[df["user_id"].isin(filtered_users)]
+
+    return filtered_df

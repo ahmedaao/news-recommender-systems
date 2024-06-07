@@ -21,13 +21,18 @@ def rating_implicite(df: pd.DataFrame) -> pd.DataFrame:
     # Calculate the number of clicks per article
     clicks_per_article = df.groupby("article_id")["article_id"].transform("count")
 
-    # Add a new column for implicit ratings, calculated as clicks per article times session size
+    # Create implicit ratings, calculated as clicks per article times session size
     df["rating"] = clicks_per_article * df["session_size"]
 
     # Normalize the click_per_article column to be between 0 and 10
     min_clicks = df["rating"].min()
     max_clicks = df["rating"].max()
     df["rating"] = 10 * (df["rating"] - min_clicks) / (max_clicks - min_clicks)
+
+    # Downsize dataframe columns
+    df["user_id"] = df["user_id"].astype("uint32")
+    df["article_id"] = df["article_id"].astype("uint32")
+    df["rating"] = df["rating"].round(2)
 
     # Ascending column 'click_per_article'
     df = df.sort_values(by="rating", ascending=False)
