@@ -122,3 +122,36 @@ def filter_by_user_counts(df: pd.DataFrame, number_of_articles: int) -> pd.DataF
     filtered_df = df[df["user_id"].isin(filtered_users)]
 
     return filtered_df
+
+
+def articles_not_clicked_by_user(df: pd.DataFrame, user_id: int) -> dict:
+    """
+    Extract all unique article_id values from the DataFrame that are not
+    associated with the given user_id.
+
+    Parameters:
+    df (pd.DataFrame): DataFrame containing columns user_id, article_id
+    user_id (int): The user ID for which to exclude the articles.
+
+    Returns:
+    dict: A dictionary with the key as user_id and
+    value as a list of unique article_id elements.
+    """
+    # Identify all article_id associated with the given user_id
+    user_articles = df[df["user_id"] == user_id]["article_id"].to_list()
+
+    # Identity users which are not user_id
+    inverse_user = df.loc[df["user_id"] != user_id]
+
+    # Extract all articles not clicked by user_id
+    final_df = inverse_user[~inverse_user["article_id"].isin(user_articles)]
+
+    # List of articles without duplicates
+    article_ids = final_df["article_id"].unique().tolist()
+
+    result = {
+        "user_id": user_id,
+        "article_id": article_ids,
+    }
+
+    return result
