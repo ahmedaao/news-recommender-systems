@@ -6,11 +6,12 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Data Source](#data-source)
-3. [Technologies](#technologies)
-4. [Models](#models)
-5. [Architecture](#architecture)
-6. [Methods](#methods)
+2. [Installation](#installation)
+3. [Data Source](#data-source)
+4. [Technologies](#technologies)
+5. [Models](#models)
+6. [Architecture](#architecture)
+7. [Methods](#methods)
     - [Method 1: BeautifulSoup and Requests](#method-1-beautifulsoup-and-requests)
     - [Method 2: Scrapy](#method-2-scrapy)
     - [Method 3: Selenium](#method-3-selenium)
@@ -19,6 +20,14 @@
 
 Numerous press articles are available on the web covering topics of all kinds (politics, sports, health, etc.). This directory provides a minimal application (MVP) that recommends articles to users based on their interests. To do this, we use a deep learning model that has been trained on user data from the Brazilian site 'Globo.com'.
 
+## Installation
+
+```sh
+git clone git@bitbucket.org:ahmedaao/news-recommender-systems.git
+cd news-recommender-systems
+pip install -r requirements.txt
+pip install . # Install modules from package src/
+```
 ## Data Source
 
 To accomplish this project, we use dataset at this [link](https://www.kaggle.com/datasets/gspmoreira/news-portal-user-interactions-by-globocom#clicks_sample.csv)
@@ -26,8 +35,8 @@ To accomplish this project, we use dataset at this [link](https://www.kaggle.com
 ## Technologies
 
 - surprise (make recommender systems)
-- streamlit
-- fastApi
+- streamlit (frontend)
+- fastApi (middleware)
 
 ## Models
 
@@ -35,6 +44,8 @@ In this project we will use the following models:
 
 - Content-based filtering
 - Collaborative filtering
+    1. Model clustering based (algorithm KNN)
+    2. Model matrix factorization based (algorithm SVD)
 
 ## Architecture
 
