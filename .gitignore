@@ -170,6 +170,7 @@ data/processed/
 # Model
 models/articles_embeddings.pickle
 models/model_based_knn.pickle
+models/model_baseline_only.pickle
 
 # Reports and figures
 reports/
