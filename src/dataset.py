@@ -6,6 +6,10 @@ import numpy as np
 import _pickle as cPickle
 from sklearn.metrics.pairwise import cosine_similarity
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def concat_csv_files(directory: str, output_file: str) -> pd.DataFrame:
     """
@@ -106,7 +110,7 @@ def closest_articles(
     return results
 
 
-def filter_by_user_counts(df: pd.DataFrame, number_of_articles: int) -> pd.DataFrame:
+def filter_by_user_counts(df: pd.DataFrame, number_of_articles: int):
     """
     DataFrame to keep users who have clicked on a min number of articles.
 

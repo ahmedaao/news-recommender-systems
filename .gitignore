@@ -166,6 +166,7 @@ cython_debug/
 data/raw/
 data/interim/
 data/processed/
+data/external/
 
 # Model
 models/articles_embeddings.pickle
