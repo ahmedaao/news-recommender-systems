@@ -9,6 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # Load environment variables from .env file
 from dotenv import load_dotenv
 load_dotenv()
+ROOT_DIR = os.getenv("ROOT_DIR")
 
 
 def concat_csv_files(directory: str, output_file: str) -> pd.DataFrame:
@@ -91,7 +92,8 @@ def closest_articles(
         - "cosine_similarities": The cosine similarity values of the closest articles.
     """
     # Deserialize pickle object
-    with open(model_dir_path + "articles_embeddings.pickle", "rb") as f:
+    #model_dir_path = os.path.join(ROOT_DIR, "models", "articles_embeddings.pickle")
+    with open(model_dir_path, "rb") as f:
         articles_embeddings = cPickle.load(f)
 
     row = articles_embeddings[article_id].reshape(1, -1)
@@ -103,8 +105,8 @@ def closest_articles(
     ]
 
     results = {
-        "indices": sorted_indices,
-        "cosine_similarities": sorted_cosine_similarities,
+        "indices": sorted_indices.tolist(),
+        "cosine_similarities": sorted_cosine_similarities.tolist(),
     }
 
     return results
@@ -159,3 +161,9 @@ def articles_not_clicked_by_user(df: pd.DataFrame, user_id: int) -> dict:
     }
 
     return result
+
+
+def load_pickle_file(file_path):
+    with open(file_path, 'rb') as file:
+        data = cPickle.load(file)
+    return data
