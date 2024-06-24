@@ -1,7 +1,5 @@
 # Import packages
 import os
-import io
-import base64
 import json
 import requests
 import streamlit as st

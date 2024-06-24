@@ -43,7 +43,8 @@ matplotlib==3.8.4
 matplotlib-inline==0.1.7
 mdurl==0.1.2
 multimethod==1.11.2
--e git+ssh://git@github.com/ahmedaao/news-recommender-systems.git@182067af10105a067c0bca97f1a2102084a23295#egg=myproject
+#-e git+ssh://git@github.com/ahmedaao/news-recommender-systems.git@182067af10105a067c0bca97f1a2102084a23295#egg=myproject
+-e git+https://github.com/ahmedaao/news-recommender-systems.git@182067af10105a067c0bca97f1a2102084a23295#egg=myproject
 nest-asyncio==1.6.0
 networkx==3.3
 nltk==3.8.1
