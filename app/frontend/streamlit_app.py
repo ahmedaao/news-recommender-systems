@@ -63,7 +63,12 @@ def app():
         ["closest_articles", "recommended_articles"]
     )
 
-    url = f"http://0.0.0.0:8000/{endpoint}"
+    # When running containers separatly with simple docker
+    # url = f"http://0.0.0.0:8000/{endpoint}"
+
+    # When running containers through docker-compose to combine them
+    url = f"http://backend:8000/{endpoint}"
+
     headers = {
         "Content-Type": "application/json"
     }

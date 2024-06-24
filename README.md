@@ -50,7 +50,10 @@ streamlit run streamlit_app.py
 
 ### Through docker 
 
-Prerequisite: in the requirements.txt file, replace 'ssh' with 'https' on the line starting with -e. 
+Prerequisite: 
+
+- Into requirements.txt file, replace 'ssh' with 'https' on the line starting with -e.
+- Into streamlit.py, ip adress for backend has to be 0.0.0.0
 
 Go to the root of the repo, first of all, create the docker image linked to fastapi
 
@@ -70,8 +73,17 @@ Now, you can launch the docker container linked to streamlit with:
 ```sh
 sudo docker run -d -p 8501:8501 --name streamlit_app_container streamlit_app:latest
 ```
+
 ### Through docker-compose
 
+Prerequisite: 
+
+- Into streamlit.py, ip adress for backend has to be backend
+
+Go to the root of the repo, then:
+```sh
+sudo docker-compose up -d
+```
 
 ## Data Source
 
@@ -98,10 +110,3 @@ In this project we will use the following models:
     2. Model matrix factorization based (algorithm SVD)
 
 ## Architecture
-
-
-## Methods
-
-### Method 1: BeautifulSoup and Requests
-
-This method utilizes the popular BeautifulSoup library for parsing HTML and the Requests library for making HTTP requests. It is a simple and effective approach for extracting data from static web pages.
