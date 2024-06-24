@@ -32,23 +32,46 @@ pip install . # Install modules from package src/
 ```
 ## Test Locally
 
-You can test the application locally in three ways:
-    1. Directly from fastAPI and streamlit
+You can test the application locally in three ways: 
 
-    Go to the root of the repo, then:
-    ```sh
-    cd app/backend
-    uvicorn fastapi_app:app --host 0.0.0.0 --port 8000 --reload
-    ```
-    
-    Now, open a new terminal and enter:
-    ```sh
-    cd app/frontend
-    streamlit run streamlit_app.py
-    ```
+### Directly from fastAPI and streamlit
 
-    2. Through docker
-    3. Through docker-compose
+Go to the root of the repo, then:
+```sh
+cd app/backend
+uvicorn fastapi_app:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Now, open a new terminal, go back to the root of the repo and enter:
+```sh
+cd app/frontend
+streamlit run streamlit_app.py
+```
+
+### Through docker 
+
+Prerequisite: in the requirements.txt file, replace 'ssh' with 'https' on the line starting with -e. 
+
+Go to the root of the repo, first of all, create the docker image linked to fastapi
+
+```sh
+sudo docker build -t fastapi_app -f app/backend/Dockerfile .
+```
+Now, you can launch the docker container linked to fastapi with:
+```sh
+sudo docker run -d -p 8000:8000 --name fastapi_app_container fastapi_app:latest
+```
+
+Go back to the root of the repo. Now, create the docker image linked to streamlit
+```sh
+sudo docker build -t streamlit_app -f app/frontend/Dockerfile .
+```
+Now, you can launch the docker container linked to streamlit with:
+```sh
+sudo docker run -d -p 8501:8501 --name streamlit_app_container streamlit_app:latest
+```
+### Through docker-compose
+
 
 ## Data Source
 
