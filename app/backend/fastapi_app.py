@@ -5,10 +5,10 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 from src import dataset
 from src.modeling import predict
+from mangum import Mangum
 
 # Load environment variables from .env file
 load_dotenv()
-# ROOT_DIR = os.getenv("ROOT_DIR")
 
 # Load pickle object
 df = dataset.load_pickle_file(
@@ -46,3 +46,6 @@ def cf_algo_svd(request: RecommendationRequest):
     result = predict.cf_svd(os.getenv("ROOT_DIR"), user_id, df, nb_articles)
 
     return result
+
+
+handler = Mangum(app=app)
