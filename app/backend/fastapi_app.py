@@ -8,7 +8,6 @@ from src.modeling import predict
 
 # Load environment variables from .env file
 load_dotenv()
-# ROOT_DIR = os.getenv("ROOT_DIR")
 
 # Load pickle object
 df = dataset.load_pickle_file(
