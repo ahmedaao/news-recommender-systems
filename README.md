@@ -14,8 +14,6 @@
 6. [Architecture](#architecture)
 7. [Methods](#methods)
     - [Method 1: BeautifulSoup and Requests](#method-1-beautifulsoup-and-requests)
-    - [Method 2: Scrapy](#method-2-scrapy)
-    - [Method 3: Selenium](#method-3-selenium)
 
 ## Introduction
 
@@ -94,11 +92,9 @@ To accomplish this project, we use dataset at this [link](https://www.kaggle.com
 - Python
 - surprise (make recommender systems)
 - streamlit (frontend)
-- fastApi (middleware)
+- fastApi (backend)
 - docker
-- docker-compose
-- AWS EC2
-- AWS Lambda
+- AWS ECR, ECS, Fargate
 
 ## Models
 
@@ -110,3 +106,9 @@ In this project we will use the following models:
     2. Model matrix factorization based (algorithm SVD)
 
 ## Architecture
+
+![image](reports/figures/architecture_diagram.png)
+
+1. the user enter values into the frontend streamlit.
+2. A request is sent from frontend to backend.
+3. Backend send back the response of the previous request

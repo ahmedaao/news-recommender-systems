@@ -23,7 +23,7 @@ class RecommendationRequest(BaseModel):
     nb_articles: int
 
 
-@app.post("/closest_articles")
+@app.post("/content_based_filtering")
 def cbf(request: RecommendationRequest):
     article_id = request.random_article_id
     nb_articles = request.nb_articles
@@ -37,7 +37,17 @@ def cbf(request: RecommendationRequest):
     return result
 
 
-@app.post("/recommended_articles")
+@app.post("/collaborative_filtering_knnWithMeans")
+def cf_algo_knn(request: RecommendationRequest):
+    user_id = request.selected_user_id
+    nb_articles = request.nb_articles
+
+    result = predict.cf_knn(os.getenv("ROOT_DIR"), user_id, df, nb_articles)
+
+    return result
+
+
+@app.post("/collaborative_filtering_svd")
 def cf_algo_svd(request: RecommendationRequest):
     user_id = request.selected_user_id
     nb_articles = request.nb_articles

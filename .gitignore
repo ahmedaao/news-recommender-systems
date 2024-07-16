@@ -175,4 +175,4 @@ models/model_based_svd.pickle
 models/model_baseline_only.pickle
 
 # Reports and figures
-reports/
+reports/figures/01.png

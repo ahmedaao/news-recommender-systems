@@ -28,7 +28,7 @@ def app():
         into a API"""
     )
 
-    st.sidebar.write("## Upload and dowload :gear:")
+    st.sidebar.write("## Input Data :gear:")
 
     # Extract unique user_id, article_id and nb_articles
     unique_user_ids = df["user_id"].unique().tolist()
@@ -60,14 +60,19 @@ def app():
     # Serialize and send inference request to fastAPI
     endpoint = st.sidebar.selectbox(
         "Choose the API endpoint",
-        ["closest_articles", "recommended_articles"]
+        [
+            "content_based_filtering",
+            "collaborative_filtering_knnWithMeans",
+            "collaborative_filtering_svd"
+        ]
     )
 
     # When running containers separatly with simple docker
     # url = f"http://0.0.0.0:8000/{endpoint}"
+    url = f"http://127.0.0.1:8000/{endpoint}"
 
     # When running containers through docker-compose to combine them
-    url = f"http://backend:8000/{endpoint}"
+    # url = f"http://backend:8000/{endpoint}"
 
     headers = {
         "Content-Type": "application/json"
